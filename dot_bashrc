@@ -1,3 +1,10 @@
+# vi mode
+set -o vi
+# normal model with jj
+bind '"jj":vi-movement-mode'
+
+# clear with Ctrl+L
+bind -x '"\C-l": clear;'
 
 # history
 shopt -s histappend
@@ -5,6 +12,7 @@ HISTCONTROL=ignoreboth
 HISTSIZE=10000
 HISTFILESIZE=2000
 
+# Custom prompt
 PROMPT_COMMAND=__prompt_command  
 __prompt_command() {
     local EXIT="$?"               
