@@ -1,0 +1,33 @@
+
+# history
+shopt -s histappend
+HISTCONTROL=ignoreboth
+HISTSIZE=10000
+HISTFILESIZE=2000
+
+PROMPT_COMMAND=__prompt_command  
+__prompt_command() {
+    local EXIT="$?"               
+    local RCol='\[\e[0m\]'
+    local Red='\[\e[0;31m\]'
+    local Blue='\[\e[0;34m\]'
+
+    PS1="${Blue}\u:\w${RCol}$(__git_ps1 ' (%s)')"
+
+    if [ $EXIT != 0 ]; then
+        PS1+="${Red}!${RCol}\$ "       
+    else
+        PS1+="\$ "       
+    fi
+}
+
+# enable colors for ls and grep
+if [ -x /usr/bin/dircolors ]; then
+    alias ls='ls --color=auto'
+    alias grep='grep --color=auto'
+    alias fgrep='fgrep --color=auto'
+    alias egrep='egrep --color=auto'
+fi
+
+. ~/.bash_aliases
+
