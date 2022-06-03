@@ -11,9 +11,24 @@ endif
 " PLUGINS
 call plug#begin('~/.vim/plugged')
 
-Plug 'morhetz/gruvbox'
+"Plug 'morhetz/gruvbox'
+Plug 'tomasr/molokai'
+"Plug 'jacoborus/tender.vim'
 
 call plug#end()
+
+
+" NETRW 
+let g:netrw_banner = 0
+" Default tree view
+let g:netrw_liststyle = 3
+" File tree on the left when opening a file with 'v'
+let g:netrw_altv=1
+" Preview (p) in vertical split
+let g:netrw_preview = 1
+let g:netrw_winsize = 25
+
+map <Leader>m :Lexplore<CR>
 
 
 " APPEARANCE
@@ -23,9 +38,10 @@ if (has("termguicolors"))
     set termguicolors
 endif
 
-" Enable gruvbox with italics
-let g:gruvbox_italic=1
-autocmd vimenter * ++nested colorscheme gruvbox
+" Enable Molokai theme
+let g:rehash256 = 1
+colorscheme molokai
+
 
 " BASICS
 set number relativenumber
@@ -33,6 +49,7 @@ set tabstop=4       " width of a TAB char
 set shiftwidth=4    " actual indent size
 set expandtab       " spaces instead of tabs
 set softtabstop=4   " 4 spaces 
+
 
 " REMAPS
 imap jj <Esc>

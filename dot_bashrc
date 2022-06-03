@@ -1,6 +1,6 @@
 # vi mode
 set -o vi
-# normal model with jj
+# normal mode with jj
 bind '"jj":vi-movement-mode'
 
 # clear with Ctrl+L
