@@ -11,13 +11,15 @@ endif
 " PLUGINS
 call plug#begin('~/.vim/plugged')
 
-"Plug 'morhetz/gruvbox'
 Plug 'tomasr/molokai'
-"Plug 'jacoborus/tender.vim'
-
+Plug 'tpope/vim-fugitive'
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf.vim'
+Plug 'mg979/vim-visual-multi', {'branch': 'master'}
+ 
 call plug#end()
-
-
+ 
+ 
 " NETRW 
 let g:netrw_banner = 0
 " Default tree view
@@ -38,9 +40,13 @@ if (has("termguicolors"))
     set termguicolors
 endif
 
-" Enable Molokai theme
-let g:rehash256 = 1
+" Enable theme
 colorscheme molokai
+
+" Theme contrast corrections
+hi Visual  guifg=#000000 guibg=#FFFFFF gui=none
+"hi ErrorMsg  guifg=#000000 guibg=#FFFFFF gui=none
+hi ErrorMsg   guifg=#1B1D1E guibg=#F92672 gui=bold
 
 
 " BASICS
@@ -55,3 +61,28 @@ set softtabstop=4   " 4 spaces
 imap jj <Esc>
 " Redo
 map U <C-R>
+
+" STATUS LINE
+
+function! GitBranch()
+  return system("git rev-parse --abbrev-ref HEAD 2>/dev/null | tr -d '\n'")
+endfunction
+
+function! StatuslineGit()
+  let l:branchname = GitBranch()
+  return strlen(l:branchname) > 0?'  '.l:branchname.' ':''
+endfunction
+
+set statusline=
+set statusline+=%#PmenuSel#
+set statusline+=%{FugitiveStatusline()}
+set statusline+=%#LineNr#
+set statusline+=\ %f
+set statusline+=%m
+set statusline+=%=
+set statusline+=%#CursorColumn#
+set statusline+=\ %{&fileencoding?&fileencoding:&encoding}
+set statusline+=\[%{&fileformat}\]
+set statusline+=\ %p%%
+set statusline+=\ %l:%c
+set statusline+=\ 
