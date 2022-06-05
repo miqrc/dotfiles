@@ -18,7 +18,10 @@ Plug 'junegunn/fzf.vim'
 Plug 'mg979/vim-visual-multi', {'branch': 'master'}
  
 call plug#end()
- 
+
+"lua require('lspconfig').gopls.setup{}
+"lua require('plugins')
+
  
 " NETRW 
 let g:netrw_banner = 0
@@ -31,6 +34,8 @@ let g:netrw_preview = 1
 let g:netrw_winsize = 25
 
 map <Leader>m :Lexplore<CR>
+
+map <Leader>n :Files<CR>
 
 
 " APPEARANCE
@@ -86,3 +91,5 @@ set statusline+=\[%{&fileformat}\]
 set statusline+=\ %p%%
 set statusline+=\ %l:%c
 set statusline+=\ 
+
+
