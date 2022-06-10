@@ -36,7 +36,8 @@ hi ErrorMsg   guifg=#1B1D1E guibg=#F92672 gui=bold
 
 
 " REMAPS
-map <Leader>m :Lexplore<CR>
+"map <Leader>m :Lexplore<CR>
+map <Leader>m :NERDTreeToggle<CR>
 map <Leader>n :Files<CR>
 imap jj <Esc>
 " Redo

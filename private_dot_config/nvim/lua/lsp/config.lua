@@ -1,4 +1,4 @@
-local servers = { 'sumneko_lua', 'gopls', 'pyright', 'tsserver', 'jsonls' }
+local servers = { 'sumneko_lua', 'gopls', 'pyright', 'tsserver', 'jsonls', 'terraformls', 'yamlls' }
 
 require("nvim-lsp-installer").setup({
     automatic_installation = true
