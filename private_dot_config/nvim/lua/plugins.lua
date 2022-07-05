@@ -13,5 +13,6 @@ require('packer').startup(function()
     use { 'junegunn/fzf.vim' }
     use { 'mg979/vim-visual-multi', branch = 'master' } -- Multi cursors
     use 'preservim/nerdtree'
+    use 'preservim/nerdcommenter'
     use 'hashivim/vim-terraform'
 end)

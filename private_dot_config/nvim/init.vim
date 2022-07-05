@@ -43,6 +43,10 @@ imap jj <Esc>
 " Redo
 map U <C-R>
 
+" CTRL+/ Comment line (NERD Commenter)
+nmap <C-_>   <Plug>NERDCommenterToggle
+vmap <C-_>   <Plug>NERDCommenterToggle<CR>gv
+
 
 " STATUS LINE
 
