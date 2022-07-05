@@ -13,6 +13,10 @@ HISTSIZE=10000
 HISTFILESIZE=2000
 
 # Custom prompt
+parse_git_branch() {
+    git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/(\1)/'
+}
+
 PROMPT_COMMAND=__prompt_command  
 __prompt_command() {
     local EXIT="$?"               
@@ -20,7 +24,7 @@ __prompt_command() {
     local Red='\[\e[0;31m\]'
     local Blue='\[\e[0;34m\]'
 
-    PS1="${Blue}\u:\w${RCol}$(__git_ps1 ' (%s)')"
+    PS1="${Blue}\u:\w${RCol}$(parse_git_branch)"
 
     if [ $EXIT != 0 ]; then
         PS1+="${Red}!${RCol}\$ "       
