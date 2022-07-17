@@ -1,2 +1,2 @@
-require "lsp.config"
-require "lsp.cmp"
+require "lsp.setup-lsp"
+require "lsp.setup-cmp"
