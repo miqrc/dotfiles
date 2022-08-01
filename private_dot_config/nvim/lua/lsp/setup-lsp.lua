@@ -39,6 +39,9 @@ local settings = {
     },
 }
 
+-- Automatically close references buffer after selecting one
+local autocmd = vim.api.nvim_create_autocmd
+autocmd({ "BufLeave" }, { pattern = { "*" }, command = "if &buftype == 'quickfix'|q|endif" })
 
 -- Add additional capabilities supported by nvim-cmp
 local capabilities = vim.lsp.protocol.make_client_capabilities()
