@@ -7,4 +7,3 @@ alias gco='git checkout'
 alias gaa='git add -A'
 
 alias vim='nvim'
-alias vi='nvim'
