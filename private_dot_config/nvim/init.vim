@@ -2,7 +2,7 @@
 " Redo
 map U <C-R>
 
-lua require('plugins')
+" lua require('plugins')
 
 if !exists('g:vscode')
     " Neovim with CLI
@@ -17,8 +17,8 @@ if !exists('g:vscode')
     set expandtab       " spaces instead of tabs
     set softtabstop=4   " 4 spaces 
 
-    lua require('plugins-cli')
-    lua require('setup-treesitter')
-    lua require('lsp')
+    " lua require('plugins-cli')
+    " lua require('setup-treesitter')
+    " lua require('lsp')
 
 endif
