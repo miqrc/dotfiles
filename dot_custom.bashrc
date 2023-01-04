@@ -17,8 +17,8 @@ HISTFILESIZE=2000
 
 # ALIASES
 
-alias ll='ls -alF'
-alias la='ls -A'
+alias ll='ls -lFh'
+alias la='ls -AlFh'
 alias l='ls -CF'
 
 alias gst='git status'
