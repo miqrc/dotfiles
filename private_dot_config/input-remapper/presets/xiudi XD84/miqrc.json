@@ -1,0 +1,80 @@
+{
+    "mapping": {
+        "1,58,1+1,22,1": [
+            "parenleft",
+            "keyboard"
+        ],
+        "1,58,1+1,23,1": [
+            "parenright",
+            "keyboard"
+        ],
+        "1,58,1+1,36,1": [
+            "Shift_L + bracketleft",
+            "keyboard"
+        ],
+        "1,58,1+1,37,1": [
+            "Shift_L + bracketright",
+            "keyboard"
+        ],
+        "1,58,1+1,50,1": [
+            "bracketleft",
+            "keyboard"
+        ],
+        "1,58,1+1,51,1": [
+            "bracketright",
+            "keyboard"
+        ],
+        "1,58,1+1,21,1": [
+            "Shift_L + 1",
+            "keyboard"
+        ],
+        "1,58,1+1,35,1": [
+            "equal",
+            "keyboard"
+        ],
+        "1,58,1+1,20,1": [
+            "Shift_L + 5",
+            "keyboard"
+        ],
+        "1,58,1+1,34,1": [
+            "Shift_L + semicolon",
+            "keyboard"
+        ],
+        "1,58,1+1,19,1": [
+            "Shift_L + 7",
+            "keyboard"
+        ],
+        "1,58,1+1,33,1": [
+            "Shift_L + 4",
+            "keyboard"
+        ],
+        "1,58,1+1,47,1": [
+            "Shift_L + equal",
+            "keyboard"
+        ],
+        "1,58,1+1,18,1": [
+            "Shift_L + 3",
+            "keyboard"
+        ],
+        "1,58,1+1,32,1": [
+            "Shift_L + 6",
+            "keyboard"
+        ],
+        "1,58,1+1,46,1": [
+            "Shift_L + 8",
+            "keyboard"
+        ],
+        "1,58,1+1,49,1": [
+            "minus",
+            "keyboard"
+        ],
+        "1,58,1+1,48,1": [
+            "Shift_L + minus",
+            "keyboard"
+        ],
+        "1,58,1": [
+            "disable",
+            "keyboard"
+        ]
+    }
+}
