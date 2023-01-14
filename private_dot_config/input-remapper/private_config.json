@@ -3,7 +3,8 @@
     "autoload": {
         "xiudi XD84": "miqrc",
         "AT Translated Set 2 keyboard": "miqrc",
-        "Kinesis Freestyle Edge Keyboard": "miqrc"
+        "Kinesis Freestyle Edge Keyboard": "miqrc",
+        "Kinesis Freestyle Edge RGB Keyboard": "miqrc"
     },
     "macros": {
         "keystroke_sleep_ms": 10
