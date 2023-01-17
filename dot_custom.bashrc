@@ -49,7 +49,8 @@ __prompt_command() {
     local White='\[\033[01;32m\]'
     local Blue='\[\033[01;34m\]'
 
-    PS1="${Green}\u@\h${White}:${Blue}\w${RCol}$(parse_git_branch)"
+    #PS1="${Green}\u@\h${White}:${Blue}\w${RCol}$(parse_git_branch)"
+    PS1="${Green}\u${White}:${Blue}\w${RCol}$(parse_git_branch)"
 
     if [ $EXIT != 0 ]; then
         PS1+="${Red}!${RCol}\$ "       
