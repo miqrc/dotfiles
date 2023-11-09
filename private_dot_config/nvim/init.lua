@@ -1,0 +1,49 @@
+vim.api.nvim_set_keymap('i', 'jj', '<Esc>', {noremap = true})
+vim.opt.relativenumber = true
+
+vim.api.nvim_create_autocmd('FileType', {
+  pattern = 'sh',
+  callback = function()
+    vim.lsp.start({
+      name = 'bash-language-server',
+      cmd = { 'bash-language-server', 'start' },
+    })
+  end,
+})
+
+
+-- Auto-install packer.nvim if it doesn't exist
+local fn = vim.fn
+local install_path = fn.stdpath('data')..'/site/pack/packer/start/packer.nvim'
+if fn.empty(fn.glob(install_path)) > 0 then
+  fn.system({'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim', install_path})
+  vim.cmd [[packadd packer.nvim]]
+end
+
+
+-- Use a protected call so we don't error out on first use
+local status_ok, packer = pcall(require, "packer")
+if not status_ok then
+  return
+end
+
+-- Have packer use a popup window
+packer.init {
+  display = {
+    open_fn = function()
+      return require('packer.util').float { border = "rounded" }
+    end,
+  },
+}
+
+-- Install your plugins here
+return packer.startup(function(use)
+  -- Your other plugins here
+
+  -- fzf and related plugins
+  use { 'junegunn/fzf', run = './install --all' }  -- We run the install script for fzf
+  use 'junegunn/fzf.vim'  -- This is the fzf Vim integration
+
+  -- Your other plugins here
+end)
+
