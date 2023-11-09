@@ -5,6 +5,8 @@ set -o vi
 ## normal mode with jj
 bind '"jj":vi-movement-mode'
 
+EDITOR=nvim
+
 ## clear with Ctrl+L
 bind -x '"\C-l": clear;'
 
@@ -28,7 +30,8 @@ alias gaa='git add -A'
 
 # ENV
 
-export PATH=$PATH:/usr/local/go/bin:$HOME/go/bin:$HOME/flutter/bin
+export PATH=$PATH:$HOME/bin
+export PATH=$PATH:/usr/local/go/bin:$HOME/go/bin
 export PATH=$PATH:$HOME/Android/Sdk/platform-tools
 export ANDROID_SDK_ROOT=$HOME/Android/Sdk
 export JAVA_HOME=/usr/lib/jvm/jre-openjdk/
