@@ -7,6 +7,8 @@ vim.api.nvim_set_keymap('n', '<Leader>fg', ':Rg<CR>', { noremap = true })
 vim.api.nvim_set_keymap('n', '<Leader>b', ':Buffers<CR>', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>', {noremap = true, silent = true})
 vim.api.nvim_set_keymap('n', 'gd', '<cmd>lua vim.lsp.buf.definition()<CR>', {noremap = true, silent = true})
+vim.api.nvim_set_keymap('n', '<Leader>n', ':NvimTreeToggle<CR>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<Leader>gg', '<cmd>Neogit<CR>', { noremap = true, silent = true })
 
 -- Set options
 vim.opt.relativenumber = true
@@ -22,6 +24,133 @@ if status_ok then
     vim.o.background = "dark" -- or "light" for light mode
     vim.cmd([[colorscheme gruvbox]])
 end
+
+-- NvimTree
+-- disable netrw at the very start of your init.lua
+vim.g.loaded_netrw = 1
+vim.g.loaded_netrwPlugin = 1
+
+-- set termguicolors to enable highlight groups
+vim.opt.termguicolors = true
+
+-- setup 
+local status_ok, nvim_tree = pcall(require, "nvim-tree")
+if status_ok then
+    nvim_tree.setup({
+        on_attach = function(client, bufnr)
+            local api = require "nvim-tree.api"
+
+            local function opts(desc)
+                return { desc = "nvim-tree: " .. desc, buffer = bufnr, noremap = true, silent = true, nowait = true }
+            end
+
+            -- default mappings
+            api.config.mappings.default_on_attach(bufnr)
+
+            -- custom mappings
+            vim.keymap.set('n', '<C-t>', api.tree.change_root_to_parent,        opts('Up'))
+            vim.keymap.set('n', '?',     api.tree.toggle_help,                  opts('Help'))
+        end,
+        sort_by = "case_sensitive",
+        view = {
+            width = 30,
+        },
+        renderer = {
+            group_empty = true,
+        },
+        filters = {
+            dotfiles = true,
+        },
+        actions = {
+            open_file = {
+                quit_on_open = true,
+            },
+        },
+    })
+end
+
+
+local status_ok, lualine = pcall(require, "lualine")
+if status_ok then
+    lualine.setup({
+        options = {
+            icons_enabled = true,
+            theme = 'auto',
+            component_separators = { left = '', right = ''},
+            section_separators = { left = '', right = ''},
+            disabled_filetypes = {
+                statusline = {},
+                winbar = {},
+            },
+            ignore_focus = {},
+            always_divide_middle = true,
+            globalstatus = false,
+            refresh = {
+                statusline = 1000,
+                tabline = 1000,
+                winbar = 1000,
+            }
+        },
+        sections = {
+            lualine_a = {'mode'},
+            lualine_b = {'branch', 'diff', 'diagnostics'},
+            lualine_c = {'filename'},
+            lualine_x = {'encoding', 'fileformat', 'filetype'},
+            lualine_y = {'progress'},
+            lualine_z = {'location'}
+        },
+        inactive_sections = {
+            lualine_a = {},
+            lualine_b = {},
+            lualine_c = {'filename'},
+            lualine_x = {'location'},
+            lualine_y = {},
+            lualine_z = {}
+        },
+        tabline = {},
+        winbar = {},
+        inactive_winbar = {},
+        extensions = {}
+    })
+end
+
+
+local status_ok, nvim_treesitter_configs = pcall(require, "nvim-treesitter.configs")
+if status_ok then
+    nvim_treesitter_configs.setup({
+        -- A list of parser names, or "all" (the five listed parsers should always be installed)
+        ensure_installed = { "rust", "typescript", "bash", "lua", "go" },
+        sync_install = true,
+        auto_install = true,
+
+        highlight = {
+            enable = true,
+
+            --  Function to disable highlight for large files (slow)
+            disable = function(lang, buf)
+                local max_filesize = 100 * 1024 -- 100 KB
+                local ok, stats = pcall(vim.loop.fs_stat, vim.api.nvim_buf_get_name(buf))
+                if ok and stats and stats.size > max_filesize then
+                    return true
+                end
+            end,
+        },
+    })
+end
+
+
+local status_ok, neogit = pcall(require, "neogit")
+if status_ok then
+    neogit.setup({
+      -- Add your configuration here, or leave it empty to use the default settings
+      -- For example:
+      integrations = {
+        -- If you have 'nvim-cmp' installed, you can enable this setting
+        diffview = true  
+      },
+    })
+end
+
 
 -- LSPs
 
@@ -92,7 +221,7 @@ if status_ok then
 
     -- rust
     lspconfig.rust_analyzer.setup({
-	    capabilities = capabilities,
+        capabilities = capabilities,
         on_attach = function(client, bufnr)
             local opts = { noremap=true, silent=true }
         end
@@ -100,7 +229,7 @@ if status_ok then
 
     -- TypeScript and JavaScript configuration
     lspconfig.tsserver.setup({
-	    capabilities = capabilities,
+        capabilities = capabilities,
         on_attach = function(client, bufnr)
             local opts = { noremap=true, silent=true }
         end,
@@ -113,7 +242,7 @@ if status_ok then
 
     -- Go
     lspconfig.gopls.setup({
-	    capabilities = capabilities,
+        capabilities = capabilities,
         on_attach = function(client, bufnr)
             local opts = { noremap=true, silent=true }
         end,
@@ -130,14 +259,12 @@ if status_ok then
     })
 
     lspconfig.bashls.setup({
-	    capabilities = capabilities,
+        capabilities = capabilities,
         on_attach = function(client, bufnr)
             local opts = { noremap=true, silent=true }
         end,
         filetypes = { "sh", "bash" }, -- Ensure that 'sh' and 'bash' filetypes are covered
     })
-
-
 
 end
 
@@ -156,10 +283,34 @@ return require('packer').startup(function(use)
     use 'hrsh7th/cmp-vsnip'
     use 'hrsh7th/vim-vsnip'
 
+    use 'github/copilot.vim'
+
     -- fzf and related plugins
     use { 'junegunn/fzf', run = './install --all' }  -- We run the install script for fzf
     use 'junegunn/fzf.vim'  -- This is the fzf Vim integration
 
     use { "ellisonleao/gruvbox.nvim" }
+
+    use {
+        'nvim-tree/nvim-tree.lua',
+        requires = {
+            'nvim-tree/nvim-web-devicons', -- optional
+        },
+    }
+
+    use {
+        'nvim-lualine/lualine.nvim',
+        requires = { 'nvim-tree/nvim-web-devicons', opt = true }
+    }
+
+    use {
+        'nvim-treesitter/nvim-treesitter',
+        run = ':TSUpdate'
+    }
+
+    use {
+        'TimUntersberger/neogit',
+        requires = 'nvim-lua/plenary.nvim',  -- Neogit requires plenary.nvim to function
+    }
 
 end)
