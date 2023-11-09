@@ -1,0 +1,10 @@
+font:
+  # The `family` field should be the name of the font you installed.
+  family: 'FiraCode Nerd Font'
+
+  # The `style` field is optional; set it if you want a specific font style.
+  style: Regular
+
+  # Size of the font
+  size: 10.0
+
